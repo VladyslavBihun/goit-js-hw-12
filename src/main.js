@@ -1,6 +1,8 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
+import axios from "axios";
+
 import { createMarkup } from './js/render-functions';
 import { searchImage } from './js/pixabay-api';
 
