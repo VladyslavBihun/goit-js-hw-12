@@ -9,6 +9,7 @@ const form = document.querySelector(".form");
 const input = document.querySelector(".input");
 const list = document.querySelector(".list");
 const loader = document.querySelector(".loader");
+const loaderTop = document.querySelector(".loader-top");
 const loadBtn = document.querySelector(".load-more");
 
 form.addEventListener("submit", handleSubmit);
@@ -16,7 +17,7 @@ loadBtn.addEventListener("click", () => handleClick(inputValue));
 
 async function handleSubmit(event) {
     event.preventDefault();
-    loader.style.display = 'inline-block';
+    loaderTop.style.display = 'inline-block';
 
     const inputValue = input.value;
 
@@ -45,9 +46,10 @@ async function handleSubmit(event) {
             position: 'topRight',
             progressBarColor: '#B51B1B',
         });
+        loadBtn.style.display = "none";
 
     } finally {
-        loader.style.display = 'none';
+        loaderTop.style.display = 'none';
         form.reset();
     }
 };
@@ -70,8 +72,11 @@ async function handleClick(inputValue) {
         const response = await searchImage(inputValue, page);
         
         createMarkup(response.hits, list);
+
         loadBtn.style.display = 'block';
         loader.style.display = 'none';
+
+        scrolling();
             
         if (page * per_page >= response.totalHits) {
             loadBtn.style.display = 'none';
@@ -84,5 +89,16 @@ async function handleClick(inputValue) {
     } catch(error) {
         console.log(error.message);
     }
-
 }
+
+function scrolling() {
+
+    const item = document.querySelector(".item");
+    const itemHeight = item.getBoundingClientRect().height;
+
+    window.scrollBy({
+        top: itemHeight * 2,
+        left: 0,
+        behavior: "smooth",
+    });
+};
