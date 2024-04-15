@@ -29,7 +29,7 @@ export function createMarkup(arr, listElement) {
         </li>
         `)
         .join("");
-    listElement.innerHTML = markup;
+    listElement.insertAdjacentHTML("beforeend", markup);
     gallery.refresh();
 }
 

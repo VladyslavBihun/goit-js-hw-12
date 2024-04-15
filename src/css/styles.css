@@ -65,6 +65,13 @@
   border: #4e75ff;
 }
 
+.load-more {
+  width: 125px;
+  height: 40px;
+  display: block;
+  margin: auto;
+}
+
 .button:hover {
   background: #6c8cff;
   border: #6c8cff;
@@ -126,4 +133,8 @@
   line-height: 2;
   letter-spacing: 0.04em;
   color: #2e2f42;
+}
+
+.load-more {
+  display: none;
 }
