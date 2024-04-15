@@ -3,7 +3,7 @@ import "izitoast/dist/css/iziToast.min.css";
 
 import { createMarkup } from './js/render-functions';
 import { searchImage } from './js/pixabay-api';
-
+import { per_page } from "./js/pixabay-api";
 
 const form = document.querySelector(".form");
 const input = document.querySelector(".input");
@@ -32,7 +32,6 @@ async function handleSubmit(event) {
         createMarkup(imageData.hits, list);
             
         loadBtn.style.display = 'block';
-            
     
     } catch (error) {
         list.innerHTML = '';
@@ -69,14 +68,21 @@ async function handleClick(inputValue) {
     
     try {
         const response = await searchImage(inputValue, page);
-        console.log(response);
         
         createMarkup(response.hits, list);
         loadBtn.style.display = 'block';
         loader.style.display = 'none';
             
+        if (page * per_page >= response.totalHits) {
+            loadBtn.style.display = 'none';
+            iziToast.info({
+                message: "We're sorry, but you've reached the end of search results.",
+                position: 'topRight',
+            });
+        }
+
     } catch(error) {
-        console.log(error);
+        console.log(error.message);
     }
 
 }
