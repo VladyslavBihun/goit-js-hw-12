@@ -1,7 +1,8 @@
 .loader {
   width: 100%;
   height: 4.8px;
-  display: none;
+  display: inline-block;
+  visibility: hidden;
   position: relative;
   background: rgba(255, 255, 255, 0.15);
   overflow: hidden;
@@ -34,7 +35,8 @@
 .loader-top {
   width: 100%;
   height: 4.8px;
-  display: none;
+  display: inline-block;
+  visibility: hidden;
   position: relative;
   background: rgba(255, 255, 255, 0.15);
   overflow: hidden;

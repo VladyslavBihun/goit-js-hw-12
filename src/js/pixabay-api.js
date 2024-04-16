@@ -16,8 +16,7 @@ export async function searchImage(userValue, page = 1) {
                 per_page, 
                 page,
                 }
-        }
-        );
+        });
 
         return response.data;
 };

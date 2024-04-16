@@ -17,7 +17,7 @@ loadBtn.addEventListener("click", () => handleClick(inputValue));
 
 async function handleSubmit(event) {
     event.preventDefault();
-    loaderTop.style.display = 'inline-block';
+    loaderTop.style.visibility = 'visible';
 
     const inputValue = input.value;
 
@@ -32,7 +32,15 @@ async function handleSubmit(event) {
         
         createMarkup(imageData.hits, list);
             
-        loadBtn.style.display = 'block';
+        loadBtn.style.visibility = 'visible';
+
+        if (page * per_page >= imageData.totalHits) {
+            loadBtn.style.visibility = 'hidden';
+            iziToast.info({
+                message: "We're sorry, but you've reached the end of search results.",
+                position: 'topRight',
+            });
+        }
     
     } catch (error) {
         list.innerHTML = '';
@@ -46,12 +54,13 @@ async function handleSubmit(event) {
             position: 'topRight',
             progressBarColor: '#B51B1B',
         });
-        loadBtn.style.display = "none";
+        loadBtn.style.visibility = 'hidden';
 
     } finally {
-        loaderTop.style.display = 'none';
+        loaderTop.style.visibility = 'hidden';
         form.reset();
     }
+
 };
 
 let inputValue = '';
@@ -63,8 +72,8 @@ input.addEventListener('input', (event) => {
 let page = 1;
 
 async function handleClick(inputValue) {
-    loadBtn.style.display = 'none';
-    loader.style.display = 'inline-block';
+    loadBtn.style.visibility = 'hidden';
+    loader.style.visibility = 'visible';
     
     page += 1;
     
@@ -73,13 +82,13 @@ async function handleClick(inputValue) {
         
         createMarkup(response.hits, list);
 
-        loadBtn.style.display = 'block';
-        loader.style.display = 'none';
+        loadBtn.style.visibility = 'visible';
+        loader.style.visibility = 'hidden';
 
         scrolling();
             
         if (page * per_page >= response.totalHits) {
-            loadBtn.style.display = 'none';
+            loadBtn.style.visibility = 'hidden';
             iziToast.info({
                 message: "We're sorry, but you've reached the end of search results.",
                 position: 'topRight',

@@ -138,5 +138,6 @@
 }
 
 .load-more {
-  display: none;
+  display: block;
+  visibility: hidden;
 }
