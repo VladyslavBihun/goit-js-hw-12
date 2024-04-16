@@ -34,7 +34,7 @@ async function handleSubmit(event) {
             
         loadBtn.style.visibility = 'visible';
 
-        if (page * per_page >= imageData.totalHits) {
+        if (page * per_page >= imageData.totalHits || imageData.total === imageData.totalHits) {
             loadBtn.style.visibility = 'hidden';
             iziToast.info({
                 message: "We're sorry, but you've reached the end of search results.",
@@ -87,7 +87,7 @@ async function handleClick(inputValue) {
 
         scrolling();
             
-        if (page * per_page >= response.totalHits) {
+        if (page * per_page >= response.totalHits || response.total === response.totalHits) {
             loadBtn.style.visibility = 'hidden';
             iziToast.info({
                 message: "We're sorry, but you've reached the end of search results.",
