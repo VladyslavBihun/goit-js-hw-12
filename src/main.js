@@ -21,6 +21,8 @@ async function handleSubmit(event) {
 
     const inputValue = input.value;
 
+    page = 1;
+
     try {  
         const imageData = await searchImage(inputValue);
             
@@ -33,15 +35,15 @@ async function handleSubmit(event) {
         createMarkup(imageData.hits, list);
             
         loadBtn.style.visibility = 'visible';
-
-        if (page * per_page >= imageData.totalHits || imageData.total === imageData.totalHits) {
+        
+        if (per_page >= imageData.totalHits) {
             loadBtn.style.visibility = 'hidden';
             iziToast.info({
                 message: "We're sorry, but you've reached the end of search results.",
                 position: 'topRight',
             });
         }
-    
+        
     } catch (error) {
         list.innerHTML = '';
         iziToast.error({
@@ -55,7 +57,7 @@ async function handleSubmit(event) {
             progressBarColor: '#B51B1B',
         });
         loadBtn.style.visibility = 'hidden';
-
+        
     } finally {
         loaderTop.style.visibility = 'hidden';
         form.reset();
@@ -86,8 +88,8 @@ async function handleClick(inputValue) {
         loader.style.visibility = 'hidden';
 
         scrolling();
-            
-        if (page * per_page >= response.totalHits || response.total === response.totalHits) {
+        
+        if (page * per_page >= response.totalHits || per_page >= response.totalHits) {
             loadBtn.style.visibility = 'hidden';
             iziToast.info({
                 message: "We're sorry, but you've reached the end of search results.",
